@@ -2,7 +2,13 @@ from bs4 import BeautifulSoup
 import requests
 
 
-def get_weather():
+def weather_forecast_tomorrow():
+    """
+    :return: ['Прогноз погоды по Мурманской области на 9 декабря.', 'Облачная с прояснениями погода. Местами
+    небольшой снег. В отдельных районах туман, изморозь. Ветер ночью западный, днем северо-восточный умеренный.
+    Температура воздуха ночью -8-13°, при прояснениях до -18°, днем -3-8°, при прояснениях до -13°. Гололедица.',
+    'Погода 8.12.2019 в 12.00\nМурманск\n-5\nВетер: юз 2-3 м/с\nДавление: 729 мм.рт.ст.\nУровень радиации: 10  мкр/ч']
+    """
     url = 'http://www.kolgimet.ru/'
     html = requests.get(url).text
     soup = BeautifulSoup(html, "lxml")
@@ -14,8 +20,11 @@ def get_weather():
 
 
 def get_title(lst):
-    # print(lst)
-    # lst[0] = lst[0][:7] + lst[0][-20:]
+    """
+    :param lst:
+    :return: Прогноз на 9 декабря.
+    """
+    print(lst)
     lst[0] = " ".join(lst[0].split())
     lst[0] = lst[0].split(' ')
     new_lst = []
@@ -25,7 +34,6 @@ def get_title(lst):
                 lst[0].index(elem) == 8:
             new_lst.append(elem)
     title = ' '.join(new_lst)
-    # print(title)
     return title
 
 
@@ -105,7 +113,7 @@ if __name__ == '__main__':
     'Облачная c прояснениями погода. Местами осадки в виде дождя и мокрого снега. Ветер северо-западный, западный\xa0 умеренный, на севере сильный. Температура воздуха +1+6°.',
     'Погода 19.09.2019 в 09.00\nМурманск\n+2\nВетер: з 3-6 м/с\nДавление: 750 мм.рт.ст.\nУровень радиации: 11 мкр/ч']
     '''
-    # lst = get_weather()
+    lst = weather_forecast_tomorrow()
     # get_title(lst)
     # info_list = get_general_information(lst)
     # t, w = get_temp_and_wind(info_list)
